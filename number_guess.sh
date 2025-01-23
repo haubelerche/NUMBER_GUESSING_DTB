@@ -8,7 +8,7 @@ QA() {
   echo -e "\nEnter your username:"
   read USERNAME
 
-  # Validate username length (up to 22 characters)
+  # username cant be more 22 var
   USERNAME_CHAR=$(echo -n $USERNAME | wc -c)
   if [[ $USERNAME_CHAR -gt 22 || $USERNAME_CHAR -lt 1 ]]
   then
@@ -19,11 +19,11 @@ QA() {
 
 QA
 
-# Check if the user exists in the database
+# Check if the user exists 
 OLD_USER=$($PSQL "SELECT username FROM users WHERE username = '$USERNAME'")
 if [[ -z $OLD_USER ]]
 then
-  # Insert new user into the database
+  # Insert new user 
   INSERTED_USER=$($PSQL "INSERT INTO users(username) VALUES ('$USERNAME')")
   echo -e "\nWelcome, $USERNAME! It looks like this is your first time here."
 else
@@ -44,7 +44,7 @@ fi
 TRIES=0
 GUESS=0
 
-# Prompt to start guessing the number
+
 echo "Guess the secret number between 1 and 1000:"
 
 while true
